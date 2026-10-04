@@ -1,0 +1,18 @@
+{
+  "model_name": "linear_regression_baseline",
+  "model_version": "1.0.0",
+  "feature_names": [
+    "current_modal_price",
+    "price_spread",
+    "arrivals_tonnes"
+  ],
+  "ridge_penalty": 0.0001,
+  "intercept": -28.9585,
+  "coefficients": {
+    "current_modal_price": 1.0149,
+    "price_spread": 0.0381,
+    "arrivals_tonnes": -0.0024
+  },
+  "trained_at": "2026-10-04T04:37:57.928491",
+  "training_records_count": 45
+}
