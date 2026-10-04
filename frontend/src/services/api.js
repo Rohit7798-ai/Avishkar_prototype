@@ -3,7 +3,14 @@
  * Provides standard request lifecycle, headers, JSON serialization, and error parsing.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+// ponytail: in production, fallback to relative path for same-domain deployments (e.g. Vercel)
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL !== undefined
+    ? import.meta.env.VITE_API_BASE_URL
+    : import.meta.env.PROD
+    ? ''
+    : 'http://127.0.0.1:8000';
+
 
 /**
  * Custom API Error carrying HTTP status code and response payload details.

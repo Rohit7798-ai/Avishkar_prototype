@@ -354,3 +354,26 @@ Configure `/etc/logrotate.d/farmer-decision` to prevent logs from consuming disk
     create 0640 www-data www-data
 }
 ```
+
+---
+
+## 13. Vercel Deployment (Full-Stack Unified)
+
+The project includes built-in support for deploying both the Vite frontend and the FastAPI backend together on Vercel as a single project.
+
+### Architecture on Vercel
+- **Frontend SPA**: Built into `frontend/dist` via `buildCommand` in `vercel.json` and served over Vercel's global CDN.
+- **Backend API**: Handled serverlessly by `@vercel/python` through `api/index.py` (which routes all `/api/*` traffic to the FastAPI application).
+- **Same-Domain Routing**: Frontend makes relative calls (`/api/...`), completely eliminating CORS issues.
+
+### Deployment Steps (Vercel Web Dashboard)
+1. Go to [vercel.com](https://vercel.com) and log in with your GitHub account.
+2. Click **Add New...** -> **Project**.
+3. Import the repository: `Rohit7798-ai/Avishkar_prototype`.
+4. Keep the **Root Directory** as `./` (the root).
+5. In **Environment Variables**, configure any required settings:
+   - `ENVIRONMENT`: `production`
+   - `DATABASE_URL` (optional): If using PostgreSQL (Neon, Supabase, Vercel Postgres, or Railway), set your connection string here. If omitted, the backend defaults to SQLite in `/tmp`.
+   - `OGD_API_KEY` (optional): Your Government of India `data.gov.in` API key for real mandi data sync.
+6. Click **Deploy**. Vercel will install dependencies, build the frontend, deploy the Python function, and assign a production URL (e.g., `https://avishkar-prototype.vercel.app`).
+

@@ -1,3 +1,4 @@
+import os
 import json
 from pathlib import Path
 from typing import List, Union
@@ -6,9 +7,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
 PROJECT_ROOT = BACKEND_DIR.parent
-DEFAULT_DATA_DIR = PROJECT_ROOT / "data"
+# ponytail: on Vercel/serverless environments the root filesystem is read-only; fallback to /tmp
+DEFAULT_DATA_DIR = Path("/tmp") if os.environ.get("VERCEL") else (PROJECT_ROOT / "data")
 DEFAULT_DB_PATH = DEFAULT_DATA_DIR / "farmer_decision.db"
 DEFAULT_DATABASE_URL = f"sqlite:///{DEFAULT_DB_PATH.as_posix()}"
+
 
 
 class Settings(BaseSettings):
